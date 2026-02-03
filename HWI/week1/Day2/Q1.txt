@@ -1,0 +1,127 @@
+📌 Problem Title
+
+Monk and the Islands
+
+📝 Problem Description
+
+Monk visits a land consisting of N islands, numbered from 1 to N.
+Some pairs of islands are connected by bidirectional bridges.
+
+Crossing a bridge requires effort, and Monk wants to minimize this effort.
+
+Monk starts on Island 1 and wants to reach Island N.
+
+Your task is to determine the minimum number of bridges Monk must cross to reach Island N, assuming he chooses the optimal route.
+
+🔹 Important Points
+
+Each bridge connects two islands
+
+Bridges are bidirectional
+
+Each bridge crossing costs 1 unit
+
+The graph is unweighted
+
+There may be multiple test cases
+
+📥 Input Format
+
+First line contains an integer T — number of test cases
+For each test case:
+
+First line contains two integers N and M
+
+N = number of islands
+
+M = number of bridges
+
+Next M lines contain two integers X and Y, indicating a bridge between island X and island Y
+
+📤 Output Format
+
+For each test case, print a single integer:
+➡ Minimum number of bridges required to reach Island N from Island 1
+
+🔒 Constraints
+
+1 ≤ T ≤ 10
+
+1 ≤ N ≤ 10⁴
+
+1 ≤ M ≤ 10⁵
+
+1 ≤ X, Y ≤ N
+
+
+
+
+
+CODE -----------------------------------------------
+
+
+
+
+
+import java.util.*;
+
+class Main {
+
+    static ArrayList<ArrayList<Integer>> graph;
+
+    static void findMinimumBridges(int n, int m) {
+
+        boolean[] visited = new boolean[n + 1];
+        int[] dist = new int[n + 1];
+
+        Queue<Integer> q = new LinkedList<>();
+        q.add(1);
+        visited[1] = true;
+
+        while (!q.isEmpty()) {
+            int node = q.poll();
+
+            if (node == n) {
+                System.out.println(dist[node]);
+                return;
+            }
+
+            for (int nei : graph.get(node)) {
+                if (!visited[nei]) {
+                    visited[nei] = true;
+                    dist[nei] = dist[node] + 1;
+                    q.add(nei);
+                }
+            }
+        }
+
+        System.out.println(-1);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+
+            graph = new ArrayList<>();
+            for (int i = 0; i <= n; i++) {
+                graph.add(new ArrayList<>());
+            }
+
+            for (int i = 0; i < m; i++) {
+                int x = sc.nextInt();
+                int y = sc.nextInt();
+                graph.get(x).add(y);
+                graph.get(y).add(x);
+            }
+
+            findMinimumBridges(n, m);
+        }
+        sc.close();
+    }
+}

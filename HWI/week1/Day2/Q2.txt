@@ -1,0 +1,99 @@
+📌 Problem Title
+
+Subset Sum (Print All Subsets – Recursion)
+
+📝 Problem Description
+
+You are given an array of N integers and an integer K.
+
+Your task is to print all unique subsets of the array such that the sum of elements in each subset is exactly equal to K.
+
+Each subset must be printed in sorted order, and all subsets must be printed in lexicographically sorted order.
+
+If the array contains duplicate elements, duplicate subsets must not be printed.
+
+🔹 Important Points
+
+A subset can contain any number of elements
+
+Each element can be used at most once
+
+Order of elements inside a subset does not matter
+
+Duplicate subsets are not allowed
+
+Subsets must be printed in sorted order
+
+📥 Input Format
+
+First line contains two integers N and K
+
+Second line contains N space-separated integers representing the array
+
+📤 Output Format
+
+Print all unique subsets whose sum is K,
+each subset on a new line, in sorted order.
+
+🔒 Constraints
+
+1 ≤ N ≤ 15
+
+1 ≤ K ≤ 50000
+
+1 ≤ arr[i] ≤ 100
+
+
+
+
+Code---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+import java.util.*;
+
+class Main {
+
+    static void findSubsets(int[] arr, int n, int k) {
+        Arrays.sort(arr);
+        backtrack(arr, k, 0, new ArrayList<>());
+    }
+
+    static void backtrack(int[] arr, int target, int index, ArrayList<Integer> current) {
+
+        if (target == 0) {
+            for (int num : current) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+            return;
+        }
+
+        for (int i = index; i < arr.length; i++) {
+            if (i > index && arr[i] == arr[i - 1]) continue;
+            if (arr[i] > target) break;
+            current.add(arr[i]);
+            backtrack(arr, target - arr[i], i + 1, current);
+            current.remove(current.size() - 1);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        findSubsets(arr, n, k);
+        sc.close();
+    }
+}
