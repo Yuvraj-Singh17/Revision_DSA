@@ -1,0 +1,44 @@
+Count number of hops
+Difficulty: EasyAccuracy: 43.93%Submissions: 162K+Points: 2
+A frog jumps either 1, 2, or 3 steps to go to the top. In how many ways can it reach the top of nth step.
+
+Examples:
+
+Input: n = 4
+Output: 7
+Explanation: Below are the 7 ways to reach 4th step:
+1 step + 1 step + 1 step + 1 step
+1 step + 2 step + 1 step
+2 step + 1 step + 1 step
+1 step + 1 step + 2 step
+2 step + 2 step
+3 step + 1 step
+1 step + 3 step
+Input: n = 2
+Output: 2
+Explanation: Below are the 2 ways to reach 2nd step:
+1 step + 1 step 
+2 step 
+Input: n = 1
+Output: 1
+Constraints:
+1 ≤ n ≤ 30
+
+
+
+
+
+
+
+// User function Template for Java
+
+class Solution {
+    // Function to count the number of ways in which frog can reach the top.
+    static int countWays(int n) {
+        // add your code here
+        if(n == 0) return 1;
+        if(n == 1) return 1;
+        if(n == 2) return 2;
+        return countWays(n-1) + countWays(n-2) + countWays(n-3);
+    }
+}
