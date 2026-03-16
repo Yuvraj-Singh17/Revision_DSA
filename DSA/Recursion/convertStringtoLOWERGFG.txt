@@ -1,0 +1,44 @@
+Convert String to LowerCase
+Difficulty: BasicAccuracy: 75.27%Submissions: 115K+Points: 1
+Given a string s. The task is to convert string characters to lowercase.
+
+Examples:
+
+Input: s = "ABCddE"
+Output: "abcdde"
+Explanation: A, B, C and E are converted to a, b, c and e thus all uppercase characters of the string converted to lowercase letter.
+Input: s = "LMNOppQQ"
+Output: "lmnoppqq"
+Explanation: L, M, N, O, and Q are converted to l, m, n, o and q thus all uppercase characters of the string converted to lowercase letter.
+Constraints:
+1 ≤ s.size() ≤ 106
+
+
+
+
+
+
+
+
+// User function template for Java
+
+class Solution {
+    static String toLower(String s) {
+        // code here
+        StringBuilder sb = new StringBuilder();
+        return to(s,sb,0);
+    }
+    static String to(String s , StringBuilder sb , int idx){
+        if(idx == s.length()){
+            return sb.toString();
+        }
+        if((int)s.charAt(idx) < 97){
+            char c = (char)('a' + s.charAt(idx) - 'A');
+            sb.append(c);
+        }else{
+            sb.append(s.charAt(idx));
+        }
+        
+        return to(s , sb , idx + 1);
+    }
+}
