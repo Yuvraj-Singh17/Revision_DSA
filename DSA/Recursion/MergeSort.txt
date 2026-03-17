@@ -1,0 +1,89 @@
+912. Sort an Array
+Solved
+Medium
+Topics
+premium lock icon
+Companies
+Given an array of integers nums, sort the array in ascending order and return it.
+
+You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.
+
+ 
+
+Example 1:
+
+Input: nums = [5,2,3,1]
+Output: [1,2,3,5]
+Explanation: After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).
+Example 2:
+
+Input: nums = [5,1,1,2,0,0]
+Output: [0,0,1,1,2,5]
+Explanation: Note that the values of nums are not necessarily unique.
+ 
+
+Constraints:
+
+1 <= nums.length <= 5 * 104
+-5 * 104 <= nums[i] <= 5 * 104
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int start = 0;
+        int end = nums.length - 1;
+
+        mergeSort(nums , start , end);
+        return nums;
+    }
+    void mergeSort(int[] nums , int start , int end){
+        if(start == end){
+            return;// jab ek element hi bachega toh return;
+        }
+        int mid = start + (end - start)/2;
+
+        mergeSort(nums , start , mid);//left array ke liye
+        mergeSort(nums , mid + 1 , end);//right array ke liye
+
+        merge(nums , start , mid , end);
+    }
+    void merge(int[] arr , int start , int mid , int end){
+
+        int[] temp = new int[end - start + 1];
+        int left = start;
+        int right = mid+1;
+        int index = 0;
+
+        while(left <= mid && right <= end){
+            if(arr[left] <= arr[right]){
+                temp[index++] = arr[left++];
+            }else{
+                temp[index++] = arr[right++];
+            }
+        }
+        //left array agar bachi hai toh use puri fill karne ke liye
+        while(left <= mid){
+            temp[index++] = arr[left++];
+        }
+        //right array agar bachi hai toh use puri fill karne ke liye 
+        while(right <= end){
+            temp[index++] = arr[right++];
+        }
+
+        // ab original array mein values daalne ke liye 
+        index = 0;
+        while(start <= end){
+            arr[start++] = temp[index++];
+        }
+    }
+}
